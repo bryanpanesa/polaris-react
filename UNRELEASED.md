@@ -18,6 +18,7 @@ Use [the changelog guidelines](https://git.io/polaris-changelog-guidelines) to f
 - Added dismiss button for `CalloutCard` ([#353](https://github.com/Shopify/polaris-react/issues/353))
 - Removed an extra tab stop from `ResourceList.Item` and make it unactionable while loading ([#XXX](https://github.com/Shopify/polaris-react/pull/XXX))
 - Removed an extra tab stop from `ResourceList.Item` and make it unactionable while loading ([#745](https://github.com/Shopify/polaris-react/pull/745))
+- Fixed timezone not being accounted for in `ResourceList` date filter control ([#710](https://github.com/Shopify/polaris-react/pull/710))
 
 ### Documentation
 
