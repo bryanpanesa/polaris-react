@@ -138,6 +138,19 @@ Use for aligning buttons or secondary content to the right edge of another eleme
 
 ---
 
+## Stack item
+
+The Stack will implicitly wrap each of its children in a Stack.Item unless used directly. Use Stack.Item as a subcomponent with the fill prop to have the item fill the available horizontal space in the stack. See "Stack where a single item fills the remaining space" as an example of this above.
+
+### Stack item properties
+
+| Prop     | Type    | Description                                                   | Default |
+| -------- | ------- | ------------------------------------------------------------- | ------- |
+| fill     | boolean | Fil the available horizontal space in the stack with the item | false   |
+| children | any     | Elements to display inside stack item                         |         |
+
+---
+
 ## Related components
 
 - To create the large-scale structure of pages, [use the layout component](/components/structure/layout)
