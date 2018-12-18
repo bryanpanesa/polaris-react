@@ -162,7 +162,7 @@ describe('<DateSelector />', () => {
   });
 
   describe('timezones adjustments', () => {
-    const timeZoneOffsets = [540, 60, 0, -60, -540];
+    const timeZoneOffsets = [720, 540, 60, 0, -60, -540, -720];
 
     const date = '2019-08-22';
     const getTimezoneOffset = Date.prototype.getTimezoneOffset;
