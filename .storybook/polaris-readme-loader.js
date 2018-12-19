@@ -100,6 +100,7 @@ function parseCodeExamples(data) {
 
   return {
     name: matter.data.name,
+    category: matter.data.category,
     slug: slugify(matter.data.name),
     examples: generateExamples(matter),
   };

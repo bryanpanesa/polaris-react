@@ -1,12 +1,34 @@
 import {configure, addDecorator} from '@storybook/react';
 import {setConsoleOptions} from '@storybook/addon-console';
 import {withNotes} from '@storybook/addon-notes';
+import {withOptions} from '@storybook/addon-options';
+import {themes} from '@storybook/components';
 
 import {
   addPlaygroundStory,
   generateStories,
   hydrateExecutableExamples,
 } from './stories-from-readme';
+
+// addon-options
+addDecorator(
+  withOptions({
+    name: 'Shopify Polaris Storybook',
+    url: '/',
+    hierarchySeparator: /\//,
+    hierarchyRootSeparator: /\|/,
+    theme: {
+      ...themes.normal,
+      mainBorderRadius: 0,
+      mainBackground: '#f4f6f8',
+      mainTextColor: '#212B36',
+      highlightColor: '#202e78',
+      dimmedTextColor: '#637381',
+      // TODO more pretty brand colors?
+      // SEE https://github.com/storybooks/storybook/blob/next/lib/components/src/theme.js
+    },
+  }),
+);
 
 // addon-notes
 addDecorator(withNotes);

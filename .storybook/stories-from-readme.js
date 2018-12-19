@@ -10,13 +10,13 @@ export function generateStories(readme) {
     return;
   }
 
-  storiesOf(readme.name, module)
+  storiesOf(`${readme.category}|${readme.name}`, module)
     .addDecorator(AppProviderDecorator)
     .addDecorator(checkA11y)
     .add('All Examples', () => AllExamplesStoryForReadme(readme));
 
   readme.examples.forEach((example) => {
-    storiesOf(readme.name, module)
+    storiesOf(`${readme.category}|${readme.name}`, module)
       .addDecorator(AppProviderDecorator)
       .addDecorator(checkA11y)
       .add(example.name, () => <example.Component />, {
@@ -45,7 +45,7 @@ export function addPlaygroundStory() {
 
 function AppProviderDecorator(story) {
   return (
-    <div style={{margin: '16px'}}>
+    <div style={{padding: '8px'}}>
       <Polaris.AppProvider>{story()}</Polaris.AppProvider>
     </div>
   );
