@@ -5,11 +5,11 @@ import {Card, Badge} from 'components';
 import {Consumer, WithinContentContext} from '../../WithinContentContext';
 
 describe('<Card />', () => {
-  function TestComponent(_: WithinContentContext) {
-    return null;
-  }
-
   it('has a child with prop withinContentContainer set to true', () => {
+    function TestComponent(_: WithinContentContext) {
+      return null;
+    }
+
     const component = mountWithAppProvider(
       <Card>
         <Consumer>
