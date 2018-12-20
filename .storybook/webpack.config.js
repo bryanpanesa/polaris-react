@@ -30,6 +30,11 @@ module.exports = (baseConfig, env, config) => {
           loader: 'babel-loader',
           options: {
             babelrc: false,
+            // Don't use the production environment as it contains optimisations
+            // that break compilation. The shopify/react preset enables the
+            // babel-plugin-transform-react-constant-elements plugin which
+            // somehow hoists things up into an undesirable location.
+            forceEnv: env === 'PRODUCTION' ? 'not-production' : undefined,
             minified: env === 'PRODUCTION',
             presets: [
               ['shopify/web', {modules: false}],
