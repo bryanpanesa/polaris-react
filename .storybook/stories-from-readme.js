@@ -4,27 +4,53 @@ import {checkA11y} from '@storybook/addon-a11y';
 import {storiesOf} from '@storybook/react';
 import Playground from '../playground/Playground';
 
+function percyOptions(custom = {}) {
+  const defaults = {skip: true, widths: [375, 1280]};
+  return {...defaults, ...custom};
+}
+
+/**
+ * In most cases we want to test the "All Examples" page as fewer snapshots
+ * means cheaper pricing. However some examples we need to test individually,
+ * usually because they use position:fixed and we don't want examples to
+ * overlay each other as it stops the test being useful.
+ */
+function percyShouldTestIndividualExamples(readmeName) {
+  return ['Modal'].includes(readmeName);
+}
+
 export function generateStories(readme) {
   // Only generate stories if there are examples
   if (readme.examples.length === 0) {
     return;
   }
 
+  const testIndividualExamples = percyShouldTestIndividualExamples(readme.name);
+
   storiesOf(`${readme.category}|${readme.name}`, module)
     .addDecorator(AppProviderDecorator)
     .addDecorator(checkA11y)
-    .add('All Examples', () => AllExamplesStoryForReadme(readme));
+    .addWithPercyOptions(
+      'All Examples',
+      percyOptions({skip: testIndividualExamples}),
+      () => AllExamplesStoryForReadme(readme),
+    );
 
   readme.examples.forEach((example) => {
     storiesOf(`${readme.category}|${readme.name}`, module)
       .addDecorator(AppProviderDecorator)
       .addDecorator(checkA11y)
-      .add(example.name, () => <example.Component />, {
+      .addParameters({
         // TODO links use styleguide-style URLs. It'd be neat to mutate them
         // to deeplink to examples in storybook.
         // TODO remove content-for android/ios blocks from the description
         notes: {markdown: example.description},
-      });
+      })
+      .addWithPercyOptions(
+        example.name,
+        percyOptions({skip: !testIndividualExamples}),
+        () => <example.Component />,
+      );
   });
 }
 
@@ -40,7 +66,7 @@ export function hydrateExecutableExamples(readme) {
 export function addPlaygroundStory() {
   storiesOf('Playground', module)
     .addDecorator(AppProviderDecorator)
-    .add('Playground', () => <Playground />);
+    .addWithPercyOptions('Playground', percyOptions(), () => <Playground />);
 }
 
 function AppProviderDecorator(story) {

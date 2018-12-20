@@ -1,8 +1,14 @@
-import {configure, addDecorator} from '@storybook/react';
+import {
+  configure,
+  addDecorator,
+  getStorybook,
+  setAddon,
+} from '@storybook/react';
 import {setConsoleOptions} from '@storybook/addon-console';
 import {withNotes} from '@storybook/addon-notes';
 import {withOptions} from '@storybook/addon-options';
 import {themes} from '@storybook/components';
+import createPercyAddon from '@percy-io/percy-storybook';
 
 import {
   addPlaygroundStory,
@@ -47,6 +53,10 @@ setConsoleOptions((opts: any) => {
   return opts;
 });
 
+// percy-storybook
+const {percyAddon, serializeStories} = createPercyAddon();
+setAddon(percyAddon);
+
 // import all README.md files within component folders
 const readmeReq = require.context(
   '../src/components',
@@ -63,3 +73,5 @@ function loadStories() {
 }
 
 configure(loadStories, module);
+
+serializeStories(getStorybook);
