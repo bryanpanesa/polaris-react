@@ -18,7 +18,8 @@ export type ComposedProps = Props &
 class ContextualSaveBar extends React.PureComponent<ComposedProps, never> {
   componentDidMount() {
     const {props} = this;
-    props.context.frame.setContextualSaveBar(props);
+    const {polaris, context, ...rest} = props;
+    props.context.frame.setContextualSaveBar(rest);
   }
 
   componentWillUnmount() {
@@ -27,8 +28,9 @@ class ContextualSaveBar extends React.PureComponent<ComposedProps, never> {
 
   componentDidUpdate(oldProps: ComposedProps) {
     const {props} = this;
-    if (contextualSaveBarHasChanged(props, oldProps)) {
-      props.context.frame.setContextualSaveBar(props);
+    const {polaris, context, ...rest} = props;
+    if (contextualSaveBarHasChanged(rest, oldProps)) {
+      props.context.frame.setContextualSaveBar(rest);
     }
   }
 
@@ -38,12 +40,12 @@ class ContextualSaveBar extends React.PureComponent<ComposedProps, never> {
 }
 
 function contextualSaveBarHasChanged(
-  {message, saveAction, discardAction}: ComposedProps,
+  {message, saveAction, discardAction}: Props,
   {
     message: oldMessage,
     saveAction: oldsaveAction,
     discardAction: oldDiscardAction,
-  }: ComposedProps,
+  }: Props,
 ) {
   return Boolean(
     message !== oldMessage ||
