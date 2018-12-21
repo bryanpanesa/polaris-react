@@ -1,5 +1,3 @@
-import * as PropTypes from 'prop-types';
-
 export interface FrameManager {
   showToast(toast: {id: string} & ToastProps): void;
   hideToast(toast: {id: string}): void;
@@ -12,10 +10,6 @@ export interface FrameManager {
 export interface FrameContext {
   frame: FrameManager;
 }
-
-export const frameContextTypes = {
-  frame: PropTypes.object,
-};
 
 interface ContextualSaveBarAction {
   /** A destination to link to */
