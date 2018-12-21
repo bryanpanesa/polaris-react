@@ -90,9 +90,7 @@ describe('<OptionList />', () => {
 
   it('re-renders with new options passed in', () => {
     const {sections} = defaultProps;
-    const optionList = shallowWithAppProvider(
-      <OptionList {...defaultProps} />,
-    );
+    const optionList = shallowWithAppProvider(<OptionList {...defaultProps} />);
 
     const newOptions: OptionDescriptor[] = [
       {
@@ -114,9 +112,7 @@ describe('<OptionList />', () => {
 
   it('re-renders with new sections passed in', () => {
     const {options} = defaultProps;
-    const optionList = shallowWithAppProvider(
-      <OptionList {...defaultProps} />,
-    );
+    const optionList = shallowWithAppProvider(<OptionList {...defaultProps} />);
 
     const newSections: SectionDescriptor[] = [
       {
@@ -141,9 +137,7 @@ describe('<OptionList />', () => {
   });
 
   it('re-renders with new options and new sections passed in', () => {
-    const optionList = shallowWithAppProvider(
-      <OptionList {...defaultProps} />,
-    );
+    const optionList = shallowWithAppProvider(<OptionList {...defaultProps} />);
 
     const newOptions: OptionDescriptor[] = [
       {
@@ -181,9 +175,7 @@ describe('<OptionList />', () => {
 
   it('re-renders with undefined options', () => {
     const {sections} = defaultProps;
-    const optionList = shallowWithAppProvider(
-      <OptionList {...defaultProps} />,
-    );
+    const optionList = shallowWithAppProvider(<OptionList {...defaultProps} />);
 
     optionList.setProps({options: undefined});
 
@@ -193,9 +185,7 @@ describe('<OptionList />', () => {
 
   it('re-renders with undefined sections', () => {
     const {options} = defaultProps;
-    const optionList = shallowWithAppProvider(
-      <OptionList {...defaultProps} />,
-    );
+    const optionList = shallowWithAppProvider(<OptionList {...defaultProps} />);
 
     optionList.setProps({sections: undefined});
 
@@ -204,9 +194,7 @@ describe('<OptionList />', () => {
   });
 
   it('re-renders with undefined options and new sections', () => {
-    const optionList = shallowWithAppProvider(
-      <OptionList {...defaultProps} />,
-    );
+    const optionList = shallowWithAppProvider(<OptionList {...defaultProps} />);
 
     const newSections: SectionDescriptor[] = [
       {
@@ -231,9 +219,7 @@ describe('<OptionList />', () => {
   });
 
   it('re-renders with new options and undefined sections', () => {
-    const optionList = shallowWithAppProvider(
-      <OptionList {...defaultProps} />,
-    );
+    const optionList = shallowWithAppProvider(<OptionList {...defaultProps} />);
 
     const newOptions: OptionDescriptor[] = [
       {
