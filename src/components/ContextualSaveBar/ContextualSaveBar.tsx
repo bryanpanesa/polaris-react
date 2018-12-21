@@ -1,32 +1,34 @@
 import * as React from 'react';
+import compose from '@shopify/react-compose';
 import isEqual from 'lodash/isEqual';
-import {
-  ContextualSaveBarProps,
-  FrameContext,
-  frameContextTypes,
-} from '../Frame';
+import {ContextualSaveBarProps, FrameContext, Consumer} from '../Frame';
+import withContext from '../WithContext';
+import {WithContextTypes} from '../../types';
+import {withAppProvider, WithAppProviderProps} from '../AppProvider';
 
 // The script in the styleguide that generates the Props Explorer data expects
 // a component's props to be found in the Props interface. This silly workaround
 // ensures that the Props Explorer table is generated correctly, instead of
 // crashing if we write `ContextualSaveBar extends React.Component<ContextualSaveBarProps>`
 interface Props extends ContextualSaveBarProps {}
+export type ComposedProps = Props &
+  WithAppProviderProps &
+  WithContextTypes<FrameContext>;
 
-class ContextualSaveBar extends React.PureComponent<Props, never> {
-  static contextTypes = frameContextTypes;
-  context: FrameContext;
-
+class ContextualSaveBar extends React.PureComponent<ComposedProps, never> {
   componentDidMount() {
-    this.context.frame.setContextualSaveBar(this.props);
+    const {props} = this;
+    props.context.frame.setContextualSaveBar(props);
   }
 
   componentWillUnmount() {
-    this.context.frame.removeContextualSaveBar();
+    this.props.context.frame.removeContextualSaveBar();
   }
 
-  componentDidUpdate(oldProps: Props) {
-    if (contextualSaveBarHasChanged(this.props, oldProps)) {
-      this.context.frame.setContextualSaveBar(this.props);
+  componentDidUpdate(oldProps: ComposedProps) {
+    const {props} = this;
+    if (contextualSaveBarHasChanged(props, oldProps)) {
+      props.context.frame.setContextualSaveBar(props);
     }
   }
 
@@ -36,12 +38,12 @@ class ContextualSaveBar extends React.PureComponent<Props, never> {
 }
 
 function contextualSaveBarHasChanged(
-  {message, saveAction, discardAction}: Props,
+  {message, saveAction, discardAction}: ComposedProps,
   {
     message: oldMessage,
     saveAction: oldsaveAction,
     discardAction: oldDiscardAction,
-  }: Props,
+  }: ComposedProps,
 ) {
   return Boolean(
     message !== oldMessage ||
@@ -50,4 +52,7 @@ function contextualSaveBarHasChanged(
   );
 }
 
-export default ContextualSaveBar;
+export default compose<Props>(
+  withContext<Props, WithAppProviderProps, FrameContext>(Consumer),
+  withAppProvider<Props>(),
+)(ContextualSaveBar);
