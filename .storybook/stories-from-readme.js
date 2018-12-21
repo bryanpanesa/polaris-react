@@ -86,17 +86,19 @@ function AllExamplesStoryForReadme(readme) {
   // Prevent false positives in visual regression testing.
   // Set a minimum height so that examples don't shift and triger
   // a failure if an example above them changes height
-  const containerStyle = {minHeight: '720px'};
+  const containerStyle = {
+    minHeight: '720px',
+    borderBottom: '1px solid #000',
+    marginBottom: '8px',
+  };
 
   return (
     <React.Fragment>
       {readme.examples.map((example) => (
-        <React.Fragment key={example.name}>
-          <div style={containerStyle}>
-            <example.Component />
-          </div>
-          <hr />
-        </React.Fragment>
+        <div key={example.name} style={containerStyle}>
+          <Polaris.Heading>{example.name}</Polaris.Heading>
+          <example.Component />
+        </div>
       ))}
     </React.Fragment>
   );
