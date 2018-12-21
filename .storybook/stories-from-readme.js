@@ -27,7 +27,7 @@ export function generateStories(readme) {
 
   const testIndividualExamples = percyShouldTestIndividualExamples(readme.name);
 
-  storiesOf(`${readme.category}|${readme.name}`, module)
+  storiesOf(`All Components|${readme.name}`, module)
     .addDecorator(AppProviderDecorator)
     .addDecorator(checkA11y)
     .addWithPercyOptions(
@@ -37,7 +37,7 @@ export function generateStories(readme) {
     );
 
   readme.examples.forEach((example) => {
-    storiesOf(`${readme.category}|${readme.name}`, module)
+    storiesOf(`All Components|${readme.name}`, module)
       .addDecorator(AppProviderDecorator)
       .addDecorator(checkA11y)
       .addParameters({
