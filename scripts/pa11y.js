@@ -52,7 +52,7 @@ async function runPa11y() {
   const setupBrowser = browsers[0].browser;
   const page = await setupBrowser.newPage();
 
-  const iframePath = `file://${__dirname}/../build/storybook-static/iframe.html`;
+  const iframePath = `file://${__dirname}/../build/storybook/static/iframe.html`;
 
   // window.__storybook_stories__ is injected into the iframe by the percy addon
   // so that Percy's script knows what stories exist. Piggybacking off that is

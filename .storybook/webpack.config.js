@@ -9,6 +9,12 @@ const {
 } = require('@shopify/images/optimize');
 const postcssShopify = require('postcss-shopify');
 
+// Use the version of webpack-bundle-analyzer (and other plugins/loaders) from
+// sewing-kit in order avoid a bunch of duplication in our devDependencies
+// eslint-disable-next-line node/no-extraneous-require, import/no-extraneous-dependencies
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
+
 const ICON_PATH_REGEX = /icons\//;
 const IMAGE_PATH_REGEX = /\.(jpe?g|png|gif|svg)$/;
 
@@ -20,7 +26,7 @@ module.exports = (baseConfig, env, config) => {
   baseConfig.stats = stats;
   baseConfig.devServer = {stats};
 
-  const cacheDir = path.resolve(__dirname, '../build/cache/storybook');
+  const cacheDir = path.resolve(__dirname, '../build/storybook/cache');
 
   const extraRules = [
     {
@@ -147,6 +153,24 @@ module.exports = (baseConfig, env, config) => {
   ];
 
   baseConfig.module.rules = [baseConfig.module.rules[0], ...extraRules];
+
+  if (env === 'PRODUCTION') {
+    baseConfig.plugins.push(
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        reportFilename: path.resolve(
+          __dirname,
+          '../build/storybook/bundle-analysis/report.html',
+        ),
+        generateStatsFile: true,
+        statsFilename: path.resolve(
+          __dirname,
+          '../build/storybook/bundle-analysis/stats.json',
+        ),
+        openAnalyzer: false,
+      }),
+    );
+  }
 
   baseConfig.resolve.extensions.push('.ts', '.tsx');
   baseConfig.resolve.alias = {
