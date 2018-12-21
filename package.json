@@ -58,7 +58,7 @@
     "dev": "yarn run copy-polaris-tokens && webpack-dev-server --config ./playground/webpack.config.js --content-base ./playground/ --hot --inline",
     "dev:host": "yarn run copy-polaris-tokens && webpack-dev-server --config ./playground/webpack.config.js --content-base ./playground/ --hot --inline --host $(ipconfig getifaddr en0)",
     "test:percy": "yarn run storybook:build && percy-storybook --build_dir build/storybook-static",
-    "test:a11y": "node ./scripts/pa11y.js",
+    "test:a11y": "yarn run storybook:build && node ./scripts/pa11y.js",
     "start": "start-storybook -p ${PORT} --ci --quiet",
     "heroku-postbuild": "yarn run copy-polaris-tokens",
     "readme-update-version": "babel-node ./scripts/readme-update-version",

@@ -46,8 +46,7 @@ jobs:
           key: v3-npm-deps-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum ".yarnclean" }}
           paths:
             - node_modules
-      - run: yarn run heroku-postbuild
-      - run: yarn start & sleep 20; yarn run test:a11y
+      - run: yarn run test:a11y
 
 workflows:
   version: 2
