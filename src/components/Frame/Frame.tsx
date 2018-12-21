@@ -12,8 +12,7 @@ import TrapFocus from '../TrapFocus';
 import {dataPolarisTopBar, layer, Duration} from '../shared';
 import {setRootProperty} from '../../utilities/setRootProperty';
 import {ContextualSaveBarProps, FrameContext, ToastProps} from './types';
-import {Provider} from './components/Context';
-import {ToastManager, Loading, ContextualSaveBar} from './components';
+import {Provider, ToastManager, Loading, ContextualSaveBar} from './components';
 
 import * as styles from './Frame.scss';
 

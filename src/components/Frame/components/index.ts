@@ -5,4 +5,4 @@ export {
 } from './ToastManager';
 export {default as Loading, Props as LoadingProps} from './Loading';
 export {default as ContextualSaveBar} from './ContextualSaveBar';
-export {Consumer} from './Context';
+export {Provider, Consumer} from './Context';
