@@ -19,6 +19,8 @@ const ICON_PATH_REGEX = /icons\//;
 const IMAGE_PATH_REGEX = /\.(jpe?g|png|gif|svg)$/;
 
 module.exports = (baseConfig, env, config) => {
+  const isProduction = env === 'PRODUCTION';
+
   // When transpiling TS using isolatedModules, the compiler doesn't strip
   // out exported types as it doesn't know if an item is a type or not.
   // Ignore those warnings as we don't care about them.
@@ -40,8 +42,8 @@ module.exports = (baseConfig, env, config) => {
             // that break compilation. The shopify/react preset enables the
             // babel-plugin-transform-react-constant-elements plugin which
             // somehow hoists things up into an undesirable location.
-            forceEnv: env === 'PRODUCTION' ? 'not-production' : undefined,
-            minified: env === 'PRODUCTION',
+            forceEnv: isProduction ? 'not-production' : undefined,
+            minified: isProduction,
             presets: [
               ['shopify/web', {modules: false}],
               ['shopify/react', {hot: true}],
@@ -61,7 +63,7 @@ module.exports = (baseConfig, env, config) => {
           loader: 'babel-loader',
           options: {
             babelrc: false,
-            minified: env === 'PRODUCTION',
+            minified: isProduction,
             presets: [
               ['shopify/web', {modules: false}],
               ['shopify/react', {hot: true}],
@@ -154,7 +156,7 @@ module.exports = (baseConfig, env, config) => {
 
   baseConfig.module.rules = [baseConfig.module.rules[0], ...extraRules];
 
-  if (env === 'PRODUCTION') {
+  if (isProduction) {
     baseConfig.plugins.push(
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
